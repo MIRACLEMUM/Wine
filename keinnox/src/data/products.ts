@@ -56,7 +56,7 @@ export const products: Product[] = [
     name: "Eva Wine",
     category: "Wine",
     price: 38000,
-    image: "/public/evawine.jpeg",
+    image: "/products/evawine.jpeg",
     description: "Intense and complex red wine with layered flavors.",
     rating: 4.5,
     inStock: true,
