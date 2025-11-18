@@ -1,45 +1,55 @@
 // src/components/ProductsGrid.tsx
-import React, { useState, useEffect, useRef } from 'react';
-import { products } from '../data/products';
-import { ProductCard } from './ProductCard';
+import { useState, useEffect, useRef, useMemo } from "react";
+import { products } from "../data/products";
+import { ProductCard } from "./ProductCard";
 
-const categories = ['All', 'Wine', 'Champagne', 'Gin', 'Whisky'];
+const categories = ["All", "Wine", "Champagne", "Gin", "Whisky"];
 
 interface ProductsGridProps {
   searchQuery?: string;
 }
 
-export const ProductsGrid = ({ searchQuery = '' }: ProductsGridProps) => {
-  const [filter, setFilter] = useState('All');
-  const [displayedProducts, setDisplayedProducts] = useState(products);
+export const ProductsGrid = ({ searchQuery = "" }: ProductsGridProps) => {
+  const [filter, setFilter] = useState("All");
 
   const productRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  useEffect(() => {
-    let filtered =
-      filter === 'All'
+  // Memoized filtered products
+  const filteredProducts = useMemo(() => {
+    let list =
+      filter === "All"
         ? products
         : products.filter((p) => p.category === filter);
 
-    if (searchQuery.trim() !== '') {
-      filtered = filtered.filter((p) =>
+    if (searchQuery.trim() !== "") {
+      list = list.filter((p) =>
         p.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
 
-    setDisplayedProducts(filtered);
-
-    if (searchQuery.trim() !== '' && filtered.length > 0) {
-      const index = products.findIndex((p) =>
-        p.name.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-
-      const ref = productRefs.current[index];
-      if (ref) {
-        ref.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    }
+    return list;
   }, [filter, searchQuery]);
+
+  // 🔥 Effect ONLY handles scrolling + highlight (no setState here)
+  useEffect(() => {
+    if (searchQuery.trim() === "" || filteredProducts.length === 0) return;
+
+    const index = products.findIndex((p) =>
+      p.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    const ref = productRefs.current[index];
+    if (!ref) return;
+
+    ref.scrollIntoView({ behavior: "smooth", block: "center" });
+    ref.classList.add("ring-2", "ring-amber-400");
+
+    const timeout = setTimeout(() => {
+      ref.classList.remove("ring-2", "ring-amber-400");
+    }, 1500);
+
+    return () => clearTimeout(timeout);
+  }, [filteredProducts, searchQuery]);
 
   return (
     <section id="products" className="py-20 bg-black">
@@ -59,8 +69,8 @@ export const ProductsGrid = ({ searchQuery = '' }: ProductsGridProps) => {
                 onClick={() => setFilter(cat)}
                 className={`px-6 py-2 rounded-full font-medium transition ${
                   filter === cat
-                    ? 'bg-amber-500 text-black'
-                    : 'bg-zinc-900 text-gray-300 hover:bg-zinc-800'
+                    ? "bg-amber-500 text-black"
+                    : "bg-zinc-900 text-gray-300 hover:bg-zinc-800"
                 }`}
               >
                 {cat}
@@ -71,10 +81,12 @@ export const ProductsGrid = ({ searchQuery = '' }: ProductsGridProps) => {
 
         {/* Products Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {displayedProducts.map((product) => (
+          {filteredProducts.map((product) => (
             <div
               key={product.id}
-              ref={(el) => (productRefs.current[product.id] = el)}
+              ref={(el) => {
+                productRefs.current[product.id] = el;
+              }}
             >
               <ProductCard product={product} />
             </div>

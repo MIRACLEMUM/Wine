@@ -1,140 +1,301 @@
+// src/pages/About.tsx
 import React from "react";
-import { motion, MotionConfig } from "framer-motion";
+import { motion } from "framer-motion";
+
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  show: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.7, ease: "easeOut" as const } 
+  },
+};
+
+const fade = {
+  hidden: { opacity: 0 },
+  show: { 
+    opacity: 1, 
+    transition: { duration: 1, ease: "easeOut" as const } 
+  },
+};
 
 const About: React.FC = () => {
   return (
-    <MotionConfig transition={{ duration: 0.6, ease: "easeInOut" }}>
-      <div className="bg-black text-gray-200">
+    <>
+      <main className="bg-black text-gray-100 pt-24 md:pt-32">
 
-        {/* HERO SECTION */}
-        <div
-          className="w-full h-[60vh] bg-cover bg-center relative"
-          style={{ backgroundImage: "url('/images/hero-drinks.jpg')" }}
+        {/* HERO */}
+        <section
+          aria-label="Keinnox hero"
+          className="relative h-[70vh] md:h-[78vh] overflow-hidden"
         >
-          <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center text-center px-4">
-            <motion.h1
-              initial={{ y: 40, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              className="text-4xl md:text-6xl font-bold text-amber-500"
-            >
-              About Our Brand
-            </motion.h1>
+          <motion.div
+            initial={{ scale: 1.2, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 1.3, ease: "easeOut" as const }}
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: "url('/public/hero image.avif')" }}
+          />
 
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="mt-3 text-gray-300 max-w-xl"
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/70 to-black" />
+
+          <div className="relative z-10 max-w-6xl mx-auto px-6 h-full flex items-center">
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              animate="show"
+              className="w-full md:w-2/3 lg:w-1/2"
             >
-              Redefining luxury drinks with authenticity, elegance, and trust.
-            </motion.p>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight mb-6">
+                Curated Luxury Drinks{" "}
+                <span className="text-amber-400">for Every Celebration</span>
+              </h1>
+
+              <p className="text-gray-300 text-lg mb-8">
+                We source rare wines, champagnes, whiskies and spirits from the
+                world’s most respected estates — delivering only verified premium
+                luxury.
+              </p>
+
+              <div className="flex flex-wrap gap-4">
+                <a
+                  href="/#products"
+                  className="px-6 py-3 bg-amber-400 text-black font-semibold rounded-full shadow hover:scale-105 transition"
+                >
+                  Explore Collection
+                </a>
+                <a
+                  href="/contact"
+                  className="px-6 py-3 border border-zinc-700 text-gray-300 rounded-full hover:bg-zinc-900 transition"
+                >
+                  Contact Us
+                </a>
+              </div>
+            </motion.div>
           </div>
-        </div>
-
-        {/* WHO WE ARE */}
-        <section className="max-w-6xl mx-auto px-6 py-20">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="text-3xl md:text-4xl font-bold text-amber-500 mb-6"
-          >
-            Who We Are
-          </motion.h2>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            className="text-gray-300 leading-relaxed text-lg"
-          >
-            We are a premium drink retail brand dedicated to delivering the finest wines, champagnes,
-            whiskies and spirits. Our mission is simple — to bring quality, authenticity, and luxury
-            directly to your doorstep.
-          </motion.p>
         </section>
 
-        {/* CORE VALUES */}
-        <section className="bg-zinc-900 py-20">
-          <div className="max-w-6xl mx-auto px-6">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              className="text-3xl md:text-4xl font-bold text-amber-500 mb-14 text-center"
+        {/* BRAND STORY */}
+        <section className="max-w-6xl mx-auto px-6 py-16 lg:py-24">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              className="space-y-6"
             >
-              Our Core Values
-            </motion.h2>
+              <h2 className="text-3xl font-bold text-amber-400">
+                Crafting Moments. Defining Luxury.
+              </h2>
 
-            <div className="grid md:grid-cols-4 gap-8">
-              {[
-                { title: "Authenticity", text: "All drinks are original, sealed and verified." },
-                { title: "Luxury", text: "Premium quality that speaks elegance." },
-                { title: "Trust", text: "Fast delivery, transparent pricing." },
-                { title: "Excellence", text: "A commitment to world-class service." },
-              ].map((item, index) => (
+              <p className="text-gray-300 leading-relaxed">
+                Founded in 2025, <strong>Keinnox</strong> is a luxury marketplace
+                for premium wines and spirits. We curate—not just sell—ensuring
+                every bottle meets the highest standards of authenticity and craft.
+              </p>
+
+              <p className="text-gray-300 leading-relaxed">
+                Every product is vetted for quality, rarity, and taste. You get
+                nothing but verified premium excellence.
+              </p>
+            </motion.div>
+
+            <motion.div
+              variants={fade}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              className="rounded-xl overflow-hidden shadow-xl border border-zinc-800"
+            >
+              <img
+                src="/products/red wine.jpg"
+                alt="Keinnox curation"
+                className="w-full h-80 object-cover"
+              />
+            </motion.div>
+          </div>
+        </section>
+
+        {/* PHILOSOPHY */}
+        <section className="bg-zinc-900 py-16 lg:py-24">
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12"
+          >
+            <div>
+              <h3 className="text-2xl font-semibold text-amber-400 mb-4">
+                Our Philosophy
+              </h3>
+              <p className="text-gray-300 leading-relaxed">
+                Luxury is more than aesthetics — it’s a refined experience of
+                quality, heritage and trust.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-2xl font-semibold text-amber-400 mb-4">
+                Our Mission
+              </h3>
+              <p className="text-gray-300 leading-relaxed">
+                To make premium wines and spirits accessible, authentic and
+                unforgettable.
+              </p>
+            </div>
+          </motion.div>
+        </section>
+
+        {/* WHY CHOOSE US */}
+        <section className="max-w-6xl mx-auto px-6 py-16 lg:py-24">
+          <motion.h3
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            className="text-3xl font-bold text-amber-400 text-center mb-12"
+          >
+            Why Choose Keinnox
+          </motion.h3>
+
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
+            {["Verified Authenticity", "Premium Experience", "Reliable Support"].map(
+              (title, i) => (
                 <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  className="p-6 bg-black rounded-xl border border-zinc-700 hover:border-amber-500 transition"
+                  key={i}
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true }}
+                  className="p-6 bg-black/30 rounded-xl border border-zinc-800"
                 >
-                  <h3 className="text-xl font-bold text-amber-500 mb-2">{item.title}</h3>
-                  <p className="text-gray-400">{item.text}</p>
+                  <h4 className="text-lg font-semibold text-amber-300 mb-2">
+                    {title}
+                  </h4>
+                  <p className="text-gray-300">
+                    Every bottle is sourced from trusted global suppliers.
+                  </p>
+                </motion.div>
+              )
+            )}
+          </div>
+        </section>
+
+        {/* JOURNEY TIMELINE */}
+        <section className="bg-zinc-950/40 py-16 lg:py-24">
+          <div className="max-w-6xl mx-auto px-6">
+            <motion.h3
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              className="text-3xl font-bold text-amber-400 text-center mb-12"
+            >
+              Our Journey
+            </motion.h3>
+
+            <div className="space-y-10">
+              {[
+                { year: "2022", title: "A vision was born", desc: "The Keinnox concept..." },
+                { year: "2023", title: "First curated collection", desc: "We expanded..." },
+                { year: "2024", title: "Brand expansion", desc: "Champagnes and rare whiskies..." },
+                { year: "2025", title: "Marketplace launch", desc: "Full e-commerce platform..." },
+              ].map((item, i) => (
+                <motion.div
+                  key={i}
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true }}
+                  className="lg:flex lg:items-start lg:gap-10"
+                >
+                  <div className="lg:w-1/4">
+                    <div className="w-16 h-16 rounded-full bg-amber-500 flex items-center justify-center font-bold text-black text-lg">
+                      {item.year}
+                    </div>
+                  </div>
+
+                  <div className="lg:w-3/4 mt-4 lg:mt-0">
+                    <h4 className="text-xl font-semibold">{item.title}</h4>
+                    <p className="text-gray-400 mt-2">{item.desc}</p>
+                  </div>
                 </motion.div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* TIMELINE */}
-        <section className="max-w-6xl mx-auto px-6 py-20">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="text-3xl md:text-4xl font-bold text-amber-500 mb-10 text-center"
+        {/* TEAM */}
+        <section className="py-16 lg:py-24">
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            className="max-w-6xl mx-auto px-6"
           >
-            Our Journey
-          </motion.h2>
+            <h3 className="text-3xl font-bold text-amber-400 text-center mb-12">
+              The Team
+            </h3>
 
-          <div className="border-l border-amber-500 ml-4 space-y-10">
-            {[
-              { year: "2022", text: "Brand idea was created." },
-              { year: "2023", text: "First premium drink collection released." },
-              { year: "2024", text: "Expanded into luxury wines & champagnes." },
-              { year: "2025", text: "Launched our online luxury drink marketplace." },
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                className="ml-6"
-              >
-                <h3 className="text-amber-500 text-2xl font-bold">{item.year}</h3>
-                <p className="text-gray-400 mt-2">{item.text}</p>
-              </motion.div>
-            ))}
-          </div>
+            <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-10">
+              {[
+                { name: "Mr Etidara", role: "Head Curator", img: "/public/CEO1.jpg" },
+                { name: "Mr Jayson", role: "Logistics/Investor", img: "/investor3.jpg" },
+                { name: "Mr usen", role: "Client Relations", img: "/products/investor2.jpg" },
+                { name: "Marketing director", role: "Brand Strategy", img: "/CEO1.jpg" },
+              ].map((p, i) => (
+                <motion.div
+                  key={i}
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true }}
+                  className="text-center p-5 bg-black/20 border border-zinc-800 rounded-xl"
+                >
+                  <div className="w-28 h-28 mx-auto rounded-full overflow-hidden mb-4 border border-zinc-700">
+                    <img src={p.img} alt={p.name} className="w-full h-full object-cover" />
+                  </div>
+                  <h4 className="text-lg font-semibold">{p.name}</h4>
+                  <p className="text-gray-400 text-sm">{p.role}</p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </section>
 
         {/* CTA */}
-        <section className="py-20 bg-zinc-950 text-center">
-          <motion.h2
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            className="text-3xl md:text-4xl font-bold text-white"
+        <section className="py-16 lg:py-24 bg-zinc-900">
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            className="max-w-6xl mx-auto px-6 text-center"
           >
-            Explore Our Exclusive Collections
-          </motion.h2>
-
-          <a href="/collections">
-            <motion.button
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              className="mt-6 px-8 py-3 bg-amber-500 text-black font-semibold rounded-full hover:bg-amber-400 transition"
+            <h3 className="text-3xl font-bold text-white mb-4">
+              Ready to discover fine drinks?
+            </h3>
+            <p className="text-gray-400 mb-6">
+              Browse our curated collection and find the perfect bottle for your
+              next celebration.
+            </p>
+            <a
+              href="/#products"
+              className="px-8 py-3 bg-amber-400 text-black font-semibold rounded-full hover:scale-105 transition"
             >
-              View Drinks
-            </motion.button>
-          </a>
+              View Collections
+            </a>
+          </motion.div>
         </section>
-      </div>
-    </MotionConfig>
+
+      </main>
+
+      
+    </>
   );
 };
 

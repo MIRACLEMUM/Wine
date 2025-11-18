@@ -8,7 +8,14 @@ import { ProductsGrid } from "./components/ProductsGrid";
 import { CartSidebar } from "./components/CartSidebar";
 import { Footer } from "./components/Footer";
 
-import About from "./pages/About"; // <-- IMPORT ABOUT PAGE
+import About from "./pages/About";
+import FAQ from "./pages/FAQ";
+import Shipping from "./pages/Shipping";
+
+
+import Contact from "./pages/Contact";
+
+// <-- IMPORT ABOUT PAGE
 
 const App: React.FC = () => {
   const [cartOpen, setCartOpen] = useState<boolean>(false);
@@ -38,6 +45,11 @@ const App: React.FC = () => {
 
             {/* ABOUT PAGE */}
             <Route path="/about" element={<About />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/shipping" element={<Shipping />} />
+
+            {/* CONTACT PAGE */}
+            <Route path="/contact" element={<Contact />} />
           </Routes>
 
           {/* FOOTER */}
