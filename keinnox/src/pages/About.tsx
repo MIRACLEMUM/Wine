@@ -243,7 +243,7 @@ const About: React.FC = () => {
 
             <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-10">
               {[
-                { name: "Mr Etidara", role: "Head Curator", img: "/public/CEO1.jpg" },
+                { name: "Mr Etidara", role: "Head Curator", img: "/public//CEO1.jpg" },
                 { name: "Mr Jayson", role: "Logistics/Investor", img: "/investor3.jpg" },
                 { name: "Mr usen", role: "Client Relations", img: "/products/investor2.jpg" },
                 { name: "Marketing director", role: "Brand Strategy", img: "/CEO1.jpg" },
